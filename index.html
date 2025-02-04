@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Adivinanzas de Nombres</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="main-content">
+    <div class="header-banner">
+      <h1 class="main-title">Juego de Adivinanzas de Nombres</h1>
+    </div>
+    <div class="input-section">
+      <h2 class="section-title">Ingresa un nombre</h2>
+      <div class="input-wrapper">
+        <input type="text" id="nombreInput" class="input-name" placeholder="Ingresa un nombre">
+        <button class="button-add" onclick="agregarAmigo()">Agregar Amigo</button>
+      </div>
+      <ul id="listaAmigos"></ul>
+      <button class="button-draw" onclick="sortearAmigo()">Sortear Amigo</button>
+      <p id="resultadoSorteo" class="result-list"></p>
+    </div>
+  </div>
+
+  <script>
+    let amigos = [];
+
+    function agregarAmigo() {
+      const nombreInput = document.getElementById('nombreInput');
+      const nombre = nombreInput.value.trim();
+
+      if (nombre === "") {
+        alert("Por favor, inserte un nombre.");
+        return;
+      }
+
+      amigos.push(nombre);
+      nombreInput.value = "";
+      actualizarListaAmigos();
+    }
+
+    function actualizarListaAmigos() {
+      const listaAmigos = document.getElementById('listaAmigos');
+      listaAmigos.innerHTML = "";
+
+      for (let amigo of amigos) {
+        const li = document.createElement('li');
+        li.textContent = amigo;
+        listaAmigos.appendChild(li);
+      }
+    }
+
+    function sortearAmigo() {
+      if (amigos.length === 0) {
+        alert("No hay amigos en la lista para sortear.");
+        return;
+      }
+
+      const indiceAleatorio = Math.floor(Math.random() * amigos.length);
+      const amigoSorteado = amigos[indiceAleatorio];
+      const resultadoSorteo = document.getElementById('resultadoSorteo');
+      resultadoSorteo.innerHTML = `El amigo sorteado es: ${amigoSorteado}`;
+    }
+  </script>
+</body>
+</html>
